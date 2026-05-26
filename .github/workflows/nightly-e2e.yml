@@ -17,6 +17,10 @@ on:
         default: 'false'
         type: boolean
 
+# Limit permissions to minimum required
+permissions:
+  contents: read
+
 concurrency:
   group: nightly-e2e
   cancel-in-progress: false

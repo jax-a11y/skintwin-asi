@@ -11,6 +11,11 @@ on:
   pull_request:
     branches: [main]
 
+# Limit permissions to minimum required
+permissions:
+  contents: read
+  checks: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
