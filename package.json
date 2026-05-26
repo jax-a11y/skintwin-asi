@@ -3,7 +3,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "test:e2e:smoke": "playwright test --project=smoke",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:firefox": "playwright test --project=firefox",
+    "test:e2e:webkit": "playwright test --project=webkit",
+    "test:e2e:a11y": "playwright test --project=a11y",
+    "test:e2e:responsive": "playwright test --project=mobile-chrome --project=tablet"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
@@ -28,5 +39,11 @@
     "styled-components": "^6.1.18",
     "three": "^0.176.0",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.52.0",
+    "eslint": "^9.27.0",
+    "eslint-config-next": "^15.3.2"
   }
 }

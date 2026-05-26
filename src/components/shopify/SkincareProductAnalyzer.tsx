@@ -196,7 +196,7 @@ const SkincareProductAnalyzer: React.FC<Props> = ({ productId = 'manual', produc
           {isAnalysing ? 'Analysing…' : 'Run ASI Analysis'}
         </Button>
 
-        {isAnalysing && <Spinner size="small" />}
+        {isAnalysing && <div data-testid="analyzing-spinner"><Spinner size="small" /></div>}
 
         {localAnalysis && !isAnalysing && (
           <>
@@ -204,7 +204,7 @@ const SkincareProductAnalyzer: React.FC<Props> = ({ productId = 'manual', produc
 
             <BlockStack gap="200">
               <Text as="h3" variant="headingSm">Overall Efficacy Score</Text>
-              <InlineStack gap="200" blockAlign="center">
+              <InlineStack gap="200" blockAlign="center" data-testid="efficacy-score">
                 <ProgressBar progress={scorePercent} size="medium" tone={scorePercent > 70 ? 'success' : scorePercent > 40 ? 'highlight' : 'critical'} />
                 <Text as="span" variant="bodyMd" fontWeight="bold">{scorePercent}%</Text>
               </InlineStack>
@@ -212,7 +212,7 @@ const SkincareProductAnalyzer: React.FC<Props> = ({ productId = 'manual', produc
 
             <BlockStack gap="100">
               <Text as="h3" variant="headingSm">Suitable Skin Types</Text>
-              <InlineStack gap="100" wrap>
+              <InlineStack gap="100" wrap data-testid="skin-type-badges">
                 {localAnalysis.skinTypes.map((st) => (
                   <Badge key={st} tone="info">{st}</Badge>
                 ))}
@@ -223,16 +223,18 @@ const SkincareProductAnalyzer: React.FC<Props> = ({ productId = 'manual', produc
             </BlockStack>
 
             {localAnalysis.asiInsights.length > 0 && (
-              <Banner title="ASI Insights">
-                <BlockStack gap="100">
-                  {localAnalysis.asiInsights.map((insight, i) => (
-                    <Text as="p" variant="bodySm" key={i}>{insight}</Text>
-                  ))}
-                </BlockStack>
-              </Banner>
+              <div data-testid="asi-insights-banner">
+                <Banner title="ASI Insights">
+                  <BlockStack gap="100">
+                    {localAnalysis.asiInsights.map((insight, i) => (
+                      <Text as="p" variant="bodySm" key={i}>{insight}</Text>
+                    ))}
+                  </BlockStack>
+                </Banner>
+              </div>
             )}
 
-            <BlockStack gap="200">
+            <BlockStack gap="200" data-testid="ingredient-breakdown">
               <Text as="h3" variant="headingSm">Ingredient Breakdown</Text>
               {localAnalysis.ingredients.map((ing, i) => (
                 <InlineStack key={i} gap="200" blockAlign="center" wrap>

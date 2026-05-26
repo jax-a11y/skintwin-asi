@@ -65,13 +65,15 @@ const ASIInsights: React.FC = () => {
 
   return (
     <Card>
-      <BlockStack gap="400">
+      <BlockStack gap="400" data-testid="asi-insights-panel">
         {/* Header */}
         <InlineStack gap="200" blockAlign="center">
           <Text as="h2" variant="headingMd">ASI Cognitive Core Status</Text>
-          <Badge tone={deepTreeEcho.isInitialized ? 'success' : 'warning'}>
-            {deepTreeEcho.isInitialized ? 'Online' : 'Idle'}
-          </Badge>
+          <span data-testid="core-status-badge">
+            <Badge tone={deepTreeEcho.isInitialized ? 'success' : 'warning'}>
+              {deepTreeEcho.isInitialized ? 'Online' : 'Idle'}
+            </Badge>
+          </span>
         </InlineStack>
 
         <Text as="p" variant="bodySm" tone="subdued">
@@ -83,7 +85,7 @@ const ASIInsights: React.FC = () => {
         <Divider />
 
         {/* Deep Tree Echo status */}
-        <BlockStack gap="200">
+        <BlockStack gap="200" data-testid="deep-tree-echo-status">
           <Text as="h3" variant="headingSm">🌲 Deep Tree Echo (Right Hemisphere)</Text>
           <Text as="p" variant="bodyXs" tone="subdued">
             Pattern recognition across ingredient combinations and skin-type signals.
@@ -103,7 +105,7 @@ const ASIInsights: React.FC = () => {
         <Divider />
 
         {/* Marduk status */}
-        <BlockStack gap="200">
+        <BlockStack gap="200" data-testid="marduk-status">
           <Text as="h3" variant="headingSm">⚖️ Marduk (Left Hemisphere)</Text>
           <Text as="p" variant="bodyXs" tone="subdued">
             Categorical logic structures skincare data into intervention blueprints.
@@ -123,15 +125,15 @@ const ASIInsights: React.FC = () => {
           <Text as="h3" variant="headingSm">📊 Catalogue Intelligence</Text>
 
           <InlineStack gap="400" wrap>
-            <BlockStack gap="050">
+            <BlockStack gap="050" data-testid="products-analyzed-count">
               <Text as="span" variant="headingLg">{analysedProducts.length}</Text>
               <Text as="span" variant="bodyXs" tone="subdued">Products analysed</Text>
             </BlockStack>
-            <BlockStack gap="050">
+            <BlockStack gap="050" data-testid="skin-profiles-count">
               <Text as="span" variant="headingLg">{savedProfiles.length}</Text>
               <Text as="span" variant="bodyXs" tone="subdued">Skin profiles</Text>
             </BlockStack>
-            <BlockStack gap="050">
+            <BlockStack gap="050" data-testid="avg-efficacy-score">
               <Text as="span" variant="headingLg">{percent(avgScore)}%</Text>
               <Text as="span" variant="bodyXs" tone="subdued">Avg efficacy score</Text>
             </BlockStack>
@@ -150,7 +152,7 @@ const ASIInsights: React.FC = () => {
         {analysedProducts.length > 0 && (
           <>
             <Divider />
-            <BlockStack gap="200">
+            <BlockStack gap="200" data-testid="recent-insights-list">
               <Text as="h3" variant="headingSm">💡 Recent ASI Insights</Text>
               {analysedProducts
                 .flatMap((p) => p.asiInsights.map((ins) => ({ product: p.productTitle, insight: ins })))
