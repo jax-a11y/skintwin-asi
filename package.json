@@ -3,10 +3,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "@shopify/app-bridge-react": "^4.2.10",
+    "@shopify/polaris": "^13.9.5",
+    "@shopify/shopify-api": "^13.0.0",
     "@types/d3": "^7.4.3",
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",

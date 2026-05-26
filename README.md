@@ -1,10 +1,32 @@
-# SkinTwin-ASI: Cognitive Alchemist Workbench
+# SkinTwin-ASI: Cognitive Alchemist Workbench — Shopify App
 
-**An AI-driven beauty-tech ecosystem featuring revolutionary cognitive architecture**
+**An AI-driven beauty-tech Shopify app featuring the ASI (Artificial Skincare Intelligence) cognitive core**
 
 ## Overview
 
-SkinTwin-ASI is an operationalized workbench of web applications and AI-enhanced features that serves as the central nervous system for an integrated beauty-tech ecosystem. The platform implements a dual-hemisphere cognitive architecture with complementary AI agents, membrane computing capabilities, and a sophisticated relevance realization framework.
+SkinTwin-ASI is a **Shopify embedded app** that brings the ASI skincare intelligence core directly into the Shopify merchant admin. The platform implements a dual-hemisphere cognitive architecture with Deep Tree Echo and Marduk agents to analyse skincare product ingredients, build customer skin profiles, and surface personalised recommendations — all within Shopify.
+
+## Shopify App Features
+
+### Embedded Admin Dashboard
+The app embeds seamlessly in the Shopify Admin via Shopify App Bridge, using **Polaris** for a native Shopify look and feel. Three main panels are available:
+
+1. **ASI Insights** — Live status of the cognitive core; catalogue-wide intelligence summary
+2. **Product Analyzer** — Paste an INCI ingredient list; the ASI core scores efficacy, identifies synergies, and flags concerns
+3. **Skin Profiles** — Capture and manage per-customer skin types, concerns, and preferences
+
+### ASI Skincare Intelligence Core
+ASI = **Artificial Skincare Intelligence**. The cognitive architecture powers:
+
+- **Deep Tree Echo** (Right Hemisphere): Pattern recognition across ingredient combinations and skin-type compatibility signals
+- **Marduk** (Left Hemisphere): Categorical logic that structures data into actionable intervention blueprints
+- **Relevance Realization Framework**: Context-sensitive personalisation of recommendations per customer profile
+- **PLingua Membrane Computing**: Biological modelling of skin-barrier processes
+
+### Shopify Integration
+- OAuth 2.0 installation flow (`/api/auth`, `/api/auth/callback`)
+- Webhook handling for `products/create`, `products/update`, `customers/create`, `customers/update`, and `app/uninstalled`
+- Shopify App Bridge v4 for session tokens and embedded navigation
 
 ## Key Features
 
@@ -64,10 +86,10 @@ The interactive dashboard provides comprehensive visualization of:
 
 ## Technology Stack
 
-- **Frontend**: React, TypeScript, Next.js, styled-components
+- **Shopify**: App Bridge React v4, Polaris v13, Shopify API v13
+- **Frontend**: React 19, TypeScript, Next.js 15
 - **State Management**: Redux Toolkit
 - **Visualization**: D3.js
-- **Machine Learning**: JAX (Python integration)
 - **Membrane Computing**: PLingua framework
 
 ## Getting Started
@@ -76,7 +98,7 @@ The interactive dashboard provides comprehensive visualization of:
 
 - Node.js 22.x or higher
 - npm or pnpm
-- Python 3.11+ (for JAX integration)
+- A [Shopify Partner account](https://partners.shopify.com/) with a registered app
 
 ### Installation
 
@@ -88,6 +110,10 @@ cd skintwin-asi
 # Install dependencies
 npm install
 
+# Copy and fill in your environment variables
+cp .env.example .env.local
+# Edit .env.local with your SHOPIFY_API_KEY, SHOPIFY_API_SECRET, and HOST
+
 # Run development server
 npm run dev
 
@@ -98,11 +124,30 @@ npm run build
 npm start
 ```
 
+### Environment Variables
+
+See `.env.example` for all required configuration. Key variables:
+
+| Variable | Description |
+|---|---|
+| `SHOPIFY_API_KEY` | Your app's client ID from the Shopify Partner dashboard |
+| `SHOPIFY_API_SECRET` | Your app's client secret |
+| `HOST` | The public URL of your deployed app (used for OAuth redirect) |
+| `SCOPES` | Comma-separated Shopify API scopes |
+| `NEXT_PUBLIC_SHOPIFY_API_KEY` | Same as `SHOPIFY_API_KEY` — exposed to the browser for App Bridge |
+
+### Shopify App Setup
+
+1. Create a new app in your Shopify Partner dashboard
+2. Set the **App URL** to `https://your-host.com` and the **Allowed redirection URL** to `https://your-host.com/api/auth/callback`
+3. Copy the API key and secret into `.env.local`
+4. Install the app on a development store via `https://your-host.com/api/auth?shop=your-store.myshopify.com`
+
 ### Deployment
 
-The application can be deployed to any Node.js hosting environment:
+The app is a standard Next.js app and can be deployed to:
 
-- **Vercel**: Optimized for Next.js applications
+- **Vercel**: Optimized for Next.js — recommended
 - **Netlify**: Supports server-side rendering
 - **AWS Amplify**: Full-stack deployment
 - **Self-hosted**: Any Node.js environment
@@ -132,22 +177,38 @@ The SkinTwin-ASI framework is grounded in several theoretical frameworks:
 
 ```
 skintwin-asi/
+├── pages/                       # Next.js pages (Shopify app routes)
+│   ├── _app.tsx                 # App wrapper (Redux + Polaris providers)
+│   ├── index.tsx                # Main embedded admin dashboard
+│   └── api/
+│       ├── auth.ts              # OAuth install entry point
+│       ├── auth/callback.ts     # OAuth callback handler
+│       └── webhooks/[topic].ts  # Shopify webhook receiver
 ├── src/
-│   ├── agents/              # AI agent implementations
-│   │   ├── deepTreeEcho/    # Deep Tree Echo agent
-│   │   ├── marduk/          # Marduk agent
-│   │   ├── plinguaMembrane/ # PLingua integration
-│   │   └── relevanceRealization/ # Relevance framework
-│   ├── components/          # React components
-│   │   ├── dashboard/       # Main dashboard
-│   │   ├── flows/           # Flow visualization
-│   │   └── membranes/       # Membrane visualization
-│   ├── lib/                 # Shared libraries
-│   ├── styles/              # Global styles and theme
-│   └── index.tsx            # Application entry point
-├── public/                  # Static assets
-├── docs/                    # Documentation
-└── package.json             # Dependencies and scripts
+│   ├── agents/                  # ASI cognitive core agents
+│   │   ├── deepTreeEcho/        # Deep Tree Echo — pattern recognition
+│   │   ├── marduk/              # Marduk — categorical intelligence
+│   │   ├── plinguaMembrane/     # PLingua — biological membrane computing
+│   │   └── relevanceRealization/# Relevance Realization Framework
+│   ├── components/
+│   │   ├── shopify/             # Shopify-integrated UI components
+│   │   │   ├── ShopifyProvider.tsx       # Polaris app provider wrapper
+│   │   │   ├── SkincareProductAnalyzer.tsx # ASI ingredient analysis UI
+│   │   │   ├── CustomerSkinProfile.tsx   # Skin profile capture form
+│   │   │   └── ASIInsights.tsx           # ASI core status dashboard
+│   │   ├── dashboard/           # Original dashboard visualisation
+│   │   ├── flows/               # Flow visualisation
+│   │   └── membranes/           # Membrane visualisation
+│   ├── lib/
+│   │   ├── store.ts             # Redux store (includes skincare slice)
+│   │   └── shopify/
+│   │       ├── shopifyClient.ts # @shopify/shopify-api initialisation
+│   │       └── skincareSlice.ts # Redux slice for skincare state
+│   └── styles/                  # Global styles and theme
+├── shopify.app.toml             # Shopify app configuration
+├── .env.example                 # Environment variable template
+├── tsconfig.json                # TypeScript configuration
+└── package.json                 # Dependencies and scripts
 ```
 
 ## Contributing
