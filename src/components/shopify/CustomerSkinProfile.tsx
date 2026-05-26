@@ -108,7 +108,7 @@ const CustomerSkinProfile: React.FC<Props> = ({ customerId, customerName = 'Cust
 
   return (
     <Card>
-      <BlockStack gap="400">
+      <BlockStack gap="400" data-testid="skin-profile-panel">
         <Text as="h2" variant="headingMd">
           👤 Skin Profile — {customerName}
         </Text>
@@ -131,19 +131,20 @@ const CustomerSkinProfile: React.FC<Props> = ({ customerId, customerName = 'Cust
           <Text as="h3" variant="headingSm">Skin Concerns</Text>
           <InlineStack gap="200" wrap>
             {COMMON_CONCERNS.map(({ name, label }) => (
-              <Checkbox
-                key={name}
-                label={label}
-                checked={Boolean(selectedConcerns[name])}
-                onChange={() => handleConcernToggle(name)}
-              />
+              <div key={name} data-testid="concern-checkbox">
+                <Checkbox
+                  label={label}
+                  checked={Boolean(selectedConcerns[name])}
+                  onChange={() => handleConcernToggle(name)}
+                />
+              </div>
             ))}
           </InlineStack>
         </BlockStack>
 
         {/* Active concerns summary */}
         {Object.keys(selectedConcerns).length > 0 && (
-          <InlineStack gap="100" wrap>
+          <InlineStack gap="100" wrap data-testid="concern-badges">
             {Object.keys(selectedConcerns).map((name) => (
               <Badge key={name} tone="info">{name}</Badge>
             ))}
