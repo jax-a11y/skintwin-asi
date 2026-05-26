@@ -1,23 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-// Import reducers once they're created
-// import agentReducer from '@/agents/agentSlice';
-// import workbenchReducer from '@/lib/workbenchSlice';
+import skincareReducer from './shopify/skincareSlice';
+import deepTreeEchoReducer from '../agents/deepTreeEcho/deepTreeEchoSlice';
+import mardukReducer from '../agents/marduk/mardukSlice';
 
 // Create the root reducer
 export const store = configureStore({
   reducer: {
-    // agents: agentReducer,
-    // workbench: workbenchReducer,
-    // Add other reducers as they're created
+    skincare: skincareReducer,
+    deepTreeEcho: deepTreeEchoReducer,
+    marduk: mardukReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore non-serializable values in specific paths
         ignoredActions: ['agents/setAgentState'],
-        ignoredPaths: ['agents.deepTreeEcho.simulation', 'agents.marduk.recursiveFeedback'],
+        ignoredPaths: ['deepTreeEcho.simulation', 'marduk.recursiveFeedback'],
       },
     }),
 });
